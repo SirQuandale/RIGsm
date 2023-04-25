@@ -2,49 +2,50 @@ const imageContainer = document.querySelector('#image-container');
 const captionContainer = document.querySelector('#caption-container');
 const sourceButton = document.querySelector('#source-button');
 let lastMediaUrl;
+let isNSFW = 1;
+let subreddits = [
+  'pics',
+  'earthporn',
+  'aww',
+  'foodporn',
+  'cats',
+  'dogs',
+  'itookapicture',
+  'art',
+  'architecture',
+  'cityporn',
+  'villageporn',
+  'spaceporn',
+  'wallpapers',
+  'historyporn',
+  'oldschoolcool',
+  'bookporn',
+  'fractalporn',
+  'machineporn',
+  'natureisfuckinglit',
+  'map_porn',
+  'futureporn',
+  'retrofuturism',
+  'abandonedporn',
+  'aerialporn',
+  'designporn',
+  'geologyporn',
+  'skyporn',
+  'botanicalporn',
+  'vintageads',
+  'analog',
+  'blackandwhite',
+  'colorizedhistory',
+  'history',
+  'industrialporn',
+  'musicbattlestations',
+  'penmanshipporn',
+  'techwearclothing',
+  'vaporwaveart',
+  'vaporwaveaesthetics'
+];
 
 async function getRandomMedia() {
-  const subreddits = [
-    'pics',
-    'earthporn',
-    'aww',
-    'foodporn',
-    'cats',
-    'dogs',
-    'itookapicture',
-    'art',
-    'architecture',
-    'cityporn',
-    'villageporn',
-    'spaceporn',
-    'wallpapers',
-    'historyporn',
-    'oldschoolcool',
-    'bookporn',
-    'fractalporn',
-    'machineporn',
-    'natureisfuckinglit',
-    'map_porn',
-    'futureporn',
-    'retrofuturism',
-    'abandonedporn',
-    'aerialporn',
-    'designporn',
-    'geologyporn',
-    'skyporn',
-    'botanicalporn',
-    'vintageads',
-    'analog',
-    'blackandwhite',
-    'colorizedhistory',
-    'history',
-    'industrialporn',
-    'musicbattlestations',
-    'penmanshipporn',
-    'techwearclothing',
-    'vaporwaveart',
-    'vaporwaveaesthetics'
-  ];      
   const randomSubreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
   const response = await fetch(`https://www.reddit.com/r/${randomSubreddit}/random.json`);
   const data = await response.json();
@@ -53,7 +54,7 @@ async function getRandomMedia() {
   const mediaType = mediaData.post_hint;
   const mediaTitle = mediaData.title;
   const sourceUrl = 'https://www.reddit.com' + mediaData.permalink;
-  
+
   if (mediaUrl === lastMediaUrl) {
     // if the same media was fetched again, recursively call the function again to get a new media
     return getRandomMedia();
@@ -61,7 +62,7 @@ async function getRandomMedia() {
     lastMediaUrl = mediaUrl;
     captionContainer.textContent = mediaTitle;
     sourceButton.setAttribute('href', sourceUrl);
-    
+
     if (mediaType === 'image') {
       return { url: mediaUrl, type: 'image' };
     } else if (mediaType === 'hosted:video') {
@@ -80,11 +81,11 @@ async function getRandomMedia() {
 async function displayRandomMedia() {
   try {
     const randomMedia = await getRandomMedia();
-    
+
     if (randomMedia.type === 'image') {
       imageContainer.innerHTML = `<img src="${randomMedia.url}" alt="${captionContainer.textContent}" class="img-fluid" id="image-container">`;
     } else if (randomMedia.type === 'video') {
-      imageContainer.innerHTML = `<video controls><source src="${randomMedia.url}" id="image-container" class="video-container"></video>`;
+      imageContainer.innerHTML = `<video controls><src="${randomMedia.url}" id="image-container" class="video-container"></video>`;
     }
   } catch (error) {
     getRandomMedia();
@@ -93,8 +94,8 @@ async function displayRandomMedia() {
 
 imageContainer.addEventListener('click', displayRandomMedia);
 sourceButton.addEventListener('click', function () {
-    const sourceUrl = sourceButton.getAttribute('href');
-    window.open(sourceUrl, '_blank');
+  const sourceUrl = sourceButton.getAttribute('href');
+  window.open(sourceUrl, '_blank');
 });
 
 
