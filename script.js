@@ -164,3 +164,26 @@ function resetLikeDislikeSystem() {
   hasDisliked = false;
   hasLiked = false;
 }
+
+reactionButton.addEventListener('click', () => {
+  // Create popup element
+  const popup = document.createElement('div');
+  popup.className = 'reaction-popup';
+  
+  // Create reaction options
+  const reactions = ['❤️', '😆', '😢', '😡', '🤔'];
+  reactions.forEach((reaction) => {
+    const button = document.createElement('button');
+    button.className = 'reaction-option';
+    button.textContent = reaction;
+    button.addEventListener('click', () => {
+      // Update reaction count and close popup
+      reactionCount.textContent = parseInt(reactionCount.textContent) + 1;
+      popup.remove();
+    });
+    popup.appendChild(button);
+  });
+  
+  // Add popup to DOM
+  document.body.appendChild(popup);
+});
