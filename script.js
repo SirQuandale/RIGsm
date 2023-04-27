@@ -2,7 +2,6 @@ const imageContainer = document.querySelector('#image-container');
 const captionContainer = document.querySelector('#caption-container');
 const sourceButton = document.querySelector('#source-button');
 let lastMediaUrl;
-let isNSFW = 1;
 let subreddits = [
   'pics',
   'earthporn',
@@ -38,12 +37,20 @@ let subreddits = [
   'colorizedhistory',
   'history',
   'industrialporn',
-  'musicbattlestations',
-  'penmanshipporn',
-  'techwearclothing',
-  'vaporwaveart',
-  'vaporwaveaesthetics'
+  'musicbattlestations'
 ];
+
+//variables for like, dislike and reactions
+const likeButton = document.querySelector('#like-button');
+const likeCount = document.querySelector('#like-count');
+const dislikeButton = document.querySelector('#dislike-button');
+const dislikeCount = document.querySelector('#dislike-count');
+const reactionButton = document.querySelector('#reaction-button');
+const reactionCount = document.querySelector('#reaction-count');
+let reactionCountValue = 0;
+
+let hasLiked = false;
+let hasDisliked = false;
 
 async function getRandomMedia() {
   const randomSubreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
@@ -54,6 +61,7 @@ async function getRandomMedia() {
   const mediaType = mediaData.post_hint;
   const mediaTitle = mediaData.title;
   const sourceUrl = 'https://www.reddit.com' + mediaData.permalink;
+  resetLikeDislikeSystem();
 
   if (mediaUrl === lastMediaUrl) {
     // if the same media was fetched again, recursively call the function again to get a new media
@@ -101,3 +109,58 @@ sourceButton.addEventListener('click', function () {
 
 // Call displayRandomMedia function when the page first loads
 displayRandomMedia();
+
+//like/dislike system + reaction count
+likeButton.addEventListener('click', () => {
+  if (!hasLiked) {
+    likeButton.classList.add('clicked');
+    likeCount.textContent = parseInt(likeCount.textContent) + 1;
+    hasLiked = true;
+    dislikeButton.disabled = true;
+    if (hasDisliked) {
+      dislikeButton.classList.remove('clicked');
+      dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
+      hasDisliked = false;
+    }
+  } else {
+    likeButton.classList.remove('clicked');
+    likeCount.textContent = parseInt(likeCount.textContent) - 1;
+    hasLiked = false;
+    dislikeButton.disabled = false;
+  }
+});
+
+dislikeButton.addEventListener('click', () => {
+  if (!hasDisliked) {
+    dislikeButton.classList.add('clicked');
+    dislikeCount.textContent = parseInt(dislikeCount.textContent) + 1;
+    hasDisliked = true;
+    likeButton.disabled = true;
+    if (hasLiked) {
+      likeButton.classList.remove('clicked');
+      likeCount.textContent = parseInt(likeCount.textContent) - 1;
+      hasLiked = false;
+    }
+  } else {
+    dislikeButton.classList.remove('clicked');
+    dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
+    hasDisliked = false;
+    likeButton.disabled = false;
+  }
+});
+
+reactionButton.addEventListener('click', () => {
+  reactionCountValue++;
+  reactionCount.textContent = reactionCountValue;
+});
+
+function resetLikeDislikeSystem() {
+  likeCount.textContent = 0;
+  dislikeCount.textContent = 0;
+  likeButton.classList.remove('clicked');
+  dislikeButton.disabled = false;
+  likeButton.disabled = false;
+  dislikeButton.classList.remove('clicked');
+  hasDisliked = false;
+  hasLiked = false;
+}

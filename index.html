@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Random Image Generator</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div class="container-sm">
-        <h2>Random Image Generator Social Media (RIGsm)</h2>
-      <div class="row justify-content-center">
-        <div class="col-sm col-md">
-            <br class="mb-5">
-            <p class="mt-5">!Image occasionally doesn't load. <br> Either view the source or roll the generator again!</p>
+
+<head>
+  <meta charset="utf-8">
+  <title>Random Image Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container-sm">
+    <h2>Random Image Generator Social Media (RIGsm)</h2>
+    <div class="row justify-content-center">
+      <div class="col-sm col-md">
+        <br class="mb-5">
+        <p class="mt-5">!Image occasionally doesn't load. <br> Either view the source or roll the generator again!</p>
+      </div>
+      <div class="col-sm col-md">
+        <center>
+          <div class="image-base">
+            <div id="image-container" class="img-fluid"></div>
+          </div>
+        </center>
+        <div id="caption-container"></div>
+        <button id="source-button" class="btn btn-secondary d-block mx-auto">View Source</button>
+      </div>
+      <div class="col-sm col-md">
+        <div id="reaction-container">
+          <div id="like-container">
+            <button id="like-button">Like</button>
+            <span id="like-count">0</span>
+          </div>
+          <div id="dislike-container">
+            <button id="dislike-button">Dislike</button>
+            <span id="dislike-count">0</span>
+          </div>
+          <div id="reaction-count-container">
+            <button id="reaction-button">Reaction</button>
+            <span id="reaction-count">0</span>
+          </div>
         </div>
-        <div class="col-sm col-md">
-            <center>
-                <div class="image-base">
-                    <div id="image-container" class="img-fluid"></div>
-                </div>
-            </center>
-          <div id="caption-container"></div>
-          <button id="source-button" class="btn btn-secondary d-block mx-auto">View Source</button>
-        </div>
-        <div class="col-sm col-md"></div>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/instafeed.js/1.4.1/instafeed.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>
